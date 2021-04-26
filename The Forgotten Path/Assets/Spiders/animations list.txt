@@ -1,9 +1,0 @@
-Animation frames
-
-Idle 65-85
-
-Walk 23-44
-
-Atack 45-64
-
-Death 0-22 

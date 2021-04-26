@@ -33,7 +33,7 @@ public class PauseGame : MonoBehaviour
     {
         //PauseMenuBehavior.SetActive(false);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Sandbox");
+        SceneManager.LoadScene("Game");
         GameIsPaused = false;
     }
     public void MainMenu()

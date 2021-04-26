@@ -13,7 +13,7 @@ namespace Invector.vCharacterController
         [Tooltip("Use this to rotate the character using the World axis, or false to use the camera axis - CHECK for Isometric Camera")]
         public bool rotateByWorld = false;
         [Tooltip("Check This to use sprint on press button to your Character run until the stamina finish or movement stops\nIf uncheck your Character will sprint as long as the SprintInput is pressed or the stamina finishes")]
-        public bool useContinuousSprint = false;
+        public bool useContinuousSprint = true;
         [Tooltip("Check this to sprint always in free movement")]
         public bool sprintOnlyFree = true;
         public enum LocomotionType

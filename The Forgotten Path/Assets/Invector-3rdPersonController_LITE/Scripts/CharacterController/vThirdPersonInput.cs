@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
-
 namespace Invector.vCharacterController
 {
     public class vThirdPersonInput : MonoBehaviour
     {
         #region Variables       
-        [SerializeField]
-        private Animator Animacija;
+
         [Header("Controller Input")]
         public string horizontalInput = "Horizontal";
         public string verticallInput = "Vertical";
@@ -29,7 +27,6 @@ namespace Invector.vCharacterController
         {
             InitilizeController();
             InitializeTpCamera();
-            Animacija = GetComponent<Animator>();
         }
 
         protected virtual void FixedUpdate()
@@ -124,19 +121,10 @@ namespace Invector.vCharacterController
 
         protected virtual void SprintInput()
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-
+            if (Input.GetKeyDown(sprintInput))
                 cc.Sprint(true);
-                Animacija.SetBool("IsSprinting", true);
-                
-
-            }
-            else if (Input.GetKeyUp(KeyCode.UpArrow))
-            {
+            else if (Input.GetKeyUp(sprintInput))
                 cc.Sprint(false);
-                Animacija.SetBool("IsSprinting", false);
-            }
         }
 
         /// <summary>
@@ -154,11 +142,7 @@ namespace Invector.vCharacterController
         protected virtual void JumpInput()
         {
             if (Input.GetKeyDown(jumpInput) && JumpConditions())
-            {
                 cc.Jump();
-                Animacija.SetBool("IsGrounded", false);
-            }
-               
         }
 
         #endregion       

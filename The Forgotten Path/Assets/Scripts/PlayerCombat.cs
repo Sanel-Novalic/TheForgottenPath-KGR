@@ -11,8 +11,7 @@ public class PlayerCombat : MonoBehaviour
     private float AttackRange;
     [SerializeField]
     private LayerMask EnemyLayer;
-    [SerializeField]
-    private Enemy Enemy;
+   
     void Start()
     {
 
@@ -32,11 +31,17 @@ public class PlayerCombat : MonoBehaviour
 
         Collider[] HitEnemies = Physics.OverlapSphere(AttackSpot.position, AttackRange, EnemyLayer);
 
-        foreach (Collider Enemy in HitEnemies)
+        foreach (Collider enemy in HitEnemies)
         {
-            Debug.Log("We hit " + Enemy.name);
+            Debug.Log("We hit " + enemy.name);
+            GameObject Enemy = enemy.gameObject;
+            if (Enemy.CompareTag("Enemy"))
+            {
+                Enemy.GetComponent<Enemy>().TakeDamage(100);
+            }
+            
         }
-        Enemy.TakeDamage(100);
+        
     }
 
     private void OnDrawGizmosSelected()

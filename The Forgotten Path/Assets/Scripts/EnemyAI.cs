@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour
         {
             
            
-                AnimatorEnemy.SetTrigger("Attack");
+                
                 StartCoroutine(Attack());
            
         }
@@ -56,7 +56,8 @@ public class EnemyAI : MonoBehaviour
     }
     private IEnumerator Attack()
     {
-        
+        AnimatorEnemy.SetTrigger("Attack");
+
         yield return new WaitForSeconds(AttackTime);
 
         Collider[] HitPlayers = Physics.OverlapSphere(AttackSpot.position, AttackRange, PlayerLayer);

@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("Hit " + player.name);
 
-            //Player.GetComponent<Player>().TakeDamage(50);
+            Player.GetComponent<Player>().TakeDamage(50);
 
         }
 

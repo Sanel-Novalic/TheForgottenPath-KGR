@@ -19,13 +19,15 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private LayerMask PlayerLayer;
     private float AttackTime;
+    private float LastAttacked;
+    private float AttackDelay=3f;
     private void Start()
     {
 
         AnimatorEnemy = this.GetComponent<Animator>();
         Player = GameObject.FindWithTag("Player");
-        GetClipTime();
-
+        
+       
     }
     private void Update()
     {
@@ -43,34 +45,39 @@ public class EnemyAI : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, Player.transform.position) <= AttackRange)
         {
-            
-           
-                
-                StartCoroutine(Attack());
-           
+
+
+
+            Attack();
+
         }
         else
             AnimatorEnemy.SetTrigger("Idle");
 
 
     }
-    private IEnumerator Attack()
+   
+    private void Attack()
     {
         AnimatorEnemy.SetTrigger("Attack");
 
-        yield return new WaitForSeconds(AttackTime);
+        AttackDelay = AnimatorEnemy.GetCurrentAnimatorStateInfo(0).length;
 
-        Collider[] HitPlayers = Physics.OverlapSphere(AttackSpot.position, AttackRange, PlayerLayer);
-
-        foreach (Collider player in HitPlayers)
+        while (Time.time > LastAttacked + AttackDelay)
         {
-            Debug.Log("Hit " + player.name);
+           
+            Debug.Log(AttackDelay);
+            Collider[] HitPlayers = Physics.OverlapSphere(AttackSpot.position, AttackRange, PlayerLayer);
 
-            Player.GetComponent<Player>().TakeDamage(50);
+            foreach (Collider player in HitPlayers)
+            {
+                Debug.Log("Hit " + player.name);
 
+                Player.GetComponent<Player>().TakeDamage(20);
+
+            }
+            LastAttacked = Time.time;
         }
-
-
 
 
     }

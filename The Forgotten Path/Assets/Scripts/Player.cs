@@ -11,8 +11,6 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	private float ChipSpeed = 1f;
 	[SerializeField]
-	private HealthBar HealthBar;
-	[SerializeField]
 	private Image FrontHealthBar;
 	[SerializeField]
 	private Image BackHealthBar;

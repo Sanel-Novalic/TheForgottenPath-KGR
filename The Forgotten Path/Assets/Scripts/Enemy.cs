@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     private int CurrentHealth;
     [SerializeField]
     private Animator EnemyAnimator;
-    
+    public event EventHandler OnHealthChanged;
     void Start()
     {
         CurrentHealth = MaxHealth;
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurrentHealth -= damage;
+        if (OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
         if (CurrentHealth <= 0)
         {
             Die();
@@ -24,7 +25,10 @@ public class Enemy : MonoBehaviour
         }
            
     }
-
+    public float GetHealthPercent()
+    {
+        return (float)CurrentHealth / MaxHealth;
+    }
     private void Die()
     {
         EnemyAnimator.SetTrigger("Died");

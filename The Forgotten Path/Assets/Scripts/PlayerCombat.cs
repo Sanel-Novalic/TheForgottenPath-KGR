@@ -37,7 +37,7 @@ public class PlayerCombat : MonoBehaviour
             GameObject Enemy = enemy.gameObject;
             if (Enemy.CompareTag("Enemy"))
             {
-                Enemy.GetComponent<Enemy>().TakeDamage(100);
+                Enemy.GetComponent<Enemy>().TakeDamage(50);
             }
             
         }

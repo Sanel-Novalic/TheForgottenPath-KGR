@@ -5,7 +5,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private int MaxHealth = 100;
-    private int CurrentHealth;
+    [HideInInspector]
+    public int CurrentHealth;
     [SerializeField]
     private Animator EnemyAnimator;
     public event EventHandler OnHealthChanged;

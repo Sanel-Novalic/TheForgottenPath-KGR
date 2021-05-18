@@ -21,12 +21,13 @@ public class EnemyAI : MonoBehaviour
     private float AttackTime;
     private float LastAttacked;
     private float AttackDelay=3f;
+    private Enemy Enemy;
     private void Start()
     {
 
         AnimatorEnemy = this.GetComponent<Animator>();
         Player = GameObject.FindWithTag("Player");
-        
+        Enemy = this.GetComponent<Enemy>();
        
     }
     private void Update()
@@ -63,7 +64,7 @@ public class EnemyAI : MonoBehaviour
 
         AttackDelay = AnimatorEnemy.GetCurrentAnimatorStateInfo(0).length;
 
-        while (Time.time > LastAttacked + AttackDelay)
+        while (Time.time > LastAttacked + AttackDelay && Enemy.CurrentHealth>0 )
         {
            
             Debug.Log(AttackDelay);

@@ -2,7 +2,10 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-public class Player : MonoBehaviour
+using Photon.Pun;
+using Photon.Realtime;
+
+public class Player : MonoBehaviourPun
 {
 	[SerializeField]
 	private int MaxHealth = 100;
@@ -16,14 +19,24 @@ public class Player : MonoBehaviour
 	private Image BackHealthBar;
 	[SerializeField]
 	private TextMeshProUGUI HealthText;
+	protected Rigidbody Rigidbody;
+	protected Animator Animator;
 	// Start is called before the first frame update
 	void Start()
     {
 		CurrentHealth = MaxHealth;
     }
-
-    // Update is called once per frame
-    void Update()
+	private void Awake()
+	{
+		Rigidbody = GetComponent<Rigidbody>();
+		Animator = GetComponent<Animator>();
+		if (!photonView.IsMine && GetComponent<ThirdPersonMovement>() != null)
+		{
+			Destroy(GetComponent<ThirdPersonMovement>());
+		}
+	}
+	// Update is called once per frame
+	void Update()
     {
 		UpdateHealthUI();
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -82,4 +95,34 @@ public class Player : MonoBehaviour
 		LerpTimer = 0f;
 
     }
+	public static void RefreshInstance(ref Player player, Player Prefab)
+	{
+		var position = Vector3.zero;
+		var rotation = Quaternion.identity;
+		if (player != null)
+		{
+			position = player.transform.position;
+			rotation = player.transform.rotation;
+			PhotonNetwork.Destroy(player.gameObject);
+		}
+
+		player = PhotonNetwork.Instantiate(Prefab.gameObject.name, position, rotation).GetComponent<Player>();
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.IsWriting)
+		{
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+			
+		}
+		else
+		{
+			transform.position = (Vector3)stream.ReceiveNext();
+			transform.rotation = (Quaternion)stream.ReceiveNext();
+			
+		}
+	}
+	
 }

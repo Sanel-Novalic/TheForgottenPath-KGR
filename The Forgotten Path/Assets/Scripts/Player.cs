@@ -5,7 +5,7 @@ using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Player : MonoBehaviourPun
+public class Player : MonoBehaviourPun,IPunObservable
 {
 	[SerializeField]
 	private int MaxHealth = 100;
@@ -30,9 +30,11 @@ public class Player : MonoBehaviourPun
 	{
 		Rigidbody = GetComponent<Rigidbody>();
 		Animator = GetComponent<Animator>();
-		if (!photonView.IsMine && GetComponent<ThirdPersonMovement>() != null)
+		if (!photonView.IsMine && this.gameObject.GetComponent<Invector.vCharacterController.vThirdPersonInput>()!=null )
 		{
-			Destroy(GetComponent<ThirdPersonMovement>());
+			this.gameObject.GetComponent<Invector.vCharacterController.vThirdPersonInput>().enabled = false;
+			
+
 		}
 	}
 	// Update is called once per frame
@@ -124,5 +126,6 @@ public class Player : MonoBehaviourPun
 			
 		}
 	}
+
 	
 }

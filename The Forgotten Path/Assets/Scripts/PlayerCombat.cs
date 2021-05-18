@@ -35,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.Log("We hit " + enemy.name);
             GameObject Enemy = enemy.gameObject;
+           
             if (Enemy.CompareTag("Enemy"))
             {
                 Enemy.GetComponent<Enemy>().TakeDamage(50);

@@ -12,9 +12,11 @@ public class TestConnect : MonoBehaviourPunCallbacks
     const string roomName = "BoxRoom";
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         PhotonNetwork.OfflineMode = false;
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = "V1";
+      
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -25,10 +27,10 @@ public class TestConnect : MonoBehaviourPunCallbacks
     }
     public void OnClickConnectToMaster()
     {
-        //PhotonNetwork.OfflineMode = false;
-        //PhotonNetwork.AutomaticallySyncScene = true;
-        //PhotonNetwork.GameVersion = "V1";
-        //PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.OfflineMode = false;
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.GameVersion = "V1";
+        PhotonNetwork.ConnectUsingSettings();
     }
     public override void OnDisconnected(DisconnectCause cause)
     {

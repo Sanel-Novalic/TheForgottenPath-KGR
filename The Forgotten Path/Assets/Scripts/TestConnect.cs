@@ -19,7 +19,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
       
         PhotonNetwork.ConnectUsingSettings();
     }
-
+    
     // Update is called once per frame
     void Update()
     {

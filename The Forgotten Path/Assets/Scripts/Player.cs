@@ -21,13 +21,16 @@ public class Player : MonoBehaviourPun,IPunObservable
 	private TextMeshProUGUI HealthText;
 	protected Rigidbody Rigidbody;
 	protected Animator Animator;
+	private static Player PlayerInstance;
 	// Start is called before the first frame update
 	void Start()
     {
 		CurrentHealth = MaxHealth;
+		
     }
 	private void Awake()
 	{
+		DontDestroyOnLoad(gameObject);
 		Rigidbody = GetComponent<Rigidbody>();
 		Animator = GetComponent<Animator>();
 		if (!photonView.IsMine && this.gameObject.GetComponent<Invector.vCharacterController.vThirdPersonInput>()!=null )
@@ -36,6 +39,8 @@ public class Player : MonoBehaviourPun,IPunObservable
 			
 
 		}
+		
+		
 	}
 	// Update is called once per frame
 	void Update()
@@ -57,7 +62,10 @@ public class Player : MonoBehaviourPun,IPunObservable
 		LerpTimer = 0f;
 		if (CurrentHealth <= 0)
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
+			CurrentHealth = MaxHealth;
 		}
 	}
 

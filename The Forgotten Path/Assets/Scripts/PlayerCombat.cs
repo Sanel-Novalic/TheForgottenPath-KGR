@@ -11,7 +11,8 @@ public class PlayerCombat : MonoBehaviour
     private float AttackRange;
     [SerializeField]
     private LayerMask EnemyLayer;
-   
+    [SerializeField]
+    private Player Player;
     void Start()
     {
 
@@ -37,7 +38,8 @@ public class PlayerCombat : MonoBehaviour
             GameObject Enemy = enemy.gameObject;
             if (Enemy.CompareTag("Enemy"))
             {
-                Enemy.GetComponent<Enemy>().TakeDamage(50);
+                Enemy.GetComponent<Enemy>().TakeDamage(Player.GetAttackDamage());
+                Debug.Log(Player.GetAttackDamage());
             }
             
         }

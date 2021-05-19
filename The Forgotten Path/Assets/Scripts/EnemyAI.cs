@@ -8,6 +8,8 @@ public class EnemyAI : MonoBehaviour
 
     private GameObject Player;
     [SerializeField]
+    private int AttackDamage = 60;
+    [SerializeField]
     float TargetRange = 30f;
     [SerializeField]
     private float Speed;
@@ -74,7 +76,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.Log("Hit " + player.name);
 
-                Player.GetComponent<Player>().TakeDamage(20);
+                Player.GetComponent<Player>().TakeDamage(AttackDamage);
 
             }
             LastAttacked = Time.time;

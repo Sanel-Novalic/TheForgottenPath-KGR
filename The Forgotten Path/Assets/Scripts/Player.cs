@@ -9,6 +9,10 @@ public class Player : MonoBehaviourPun
 {
 	[SerializeField]
 	private int MaxHealth = 100;
+	[SerializeField]
+	private int AttackDamage = 100;
+	[SerializeField]
+	private int AttackDamagePerLevel = 20;
 	private int CurrentHealth;
 	private float LerpTimer;
 	[SerializeField]
@@ -19,8 +23,11 @@ public class Player : MonoBehaviourPun
 	private Image BackHealthBar;
 	[SerializeField]
 	private TextMeshProUGUI HealthText;
+	[SerializeField]
+	private int HealthPerLevel = 50;
 	protected Rigidbody Rigidbody;
 	protected Animator Animator;
+	
 	// Start is called before the first frame update
 	void Start()
     {
@@ -84,10 +91,18 @@ public class Player : MonoBehaviourPun
 		}
 		HealthText.text = CurrentHealth + "/" + MaxHealth;
 	}
-	public void IncreaseHealth(int level)
+
+	public int GetAttackDamage()
+    {
+		return AttackDamage;
+    }
+	public void IncreaseStats()
 	{
-		MaxHealth += Mathf.RoundToInt((CurrentHealth * 0.01f) * ((100 - level) * 0.1f));
+		//MaxHealth += Mathf.RoundToInt((CurrentHealth * 0.01f) * ((100 - level) * 0.1f));
+		AttackDamage += AttackDamagePerLevel;
+		MaxHealth += HealthPerLevel;
 		CurrentHealth = MaxHealth;
+
 	}
 	public void RestoreHealth(int HealAmount)
     {

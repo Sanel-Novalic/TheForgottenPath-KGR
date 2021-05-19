@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using Unity.Collections;
+using System.Collections.Generic;
 
 public class HuntAndKillMazeAlgorithm : MazeAlgorithm {
 
@@ -7,8 +10,12 @@ public class HuntAndKillMazeAlgorithm : MazeAlgorithm {
 	private int currentColumn = 0;
 
 	private bool courseComplete = false;
-
-	public HuntAndKillMazeAlgorithm(MazeCell[,] mazeCells) : base(mazeCells) {
+	private GameObject Checkpoint;
+	private float Offset;
+	private MazeLoader MazeLoader;
+	public HuntAndKillMazeAlgorithm(MazeCell[,] mazeCells, MazeLoader maze, float offset = 0f) : base(mazeCells) {
+		MazeLoader = maze;
+		Offset = offset;
 	}
 
 	public override void CreateMaze () {
@@ -20,7 +27,9 @@ public class HuntAndKillMazeAlgorithm : MazeAlgorithm {
 
 		while (! courseComplete) {
 			Kill(); // Will run until it hits a dead end.
+			MazeLoader.CreateCheckpoint(currentRow, currentColumn,Offset);
 			Hunt(); // Finds the next unvisited cell with an adjacent visited cell. If it can't find any, it sets courseComplete to true.
+			//.CreateRespawnPosition(currentRow, currentColumn, Offset);
 		}
 	}
 
@@ -106,6 +115,7 @@ public class HuntAndKillMazeAlgorithm : MazeAlgorithm {
 	private void DestroyWallIfItExists(GameObject wall) {
 		if (wall != null) {
 			GameObject.Destroy (wall);
+			wall = null;
 		}
 	}
 

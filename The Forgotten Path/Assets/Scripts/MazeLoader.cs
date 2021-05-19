@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class MazeLoader : MonoBehaviour {
 	[SerializeField]
@@ -8,31 +10,38 @@ public class MazeLoader : MonoBehaviour {
 	GameObject wall;
 	[SerializeField] 
 	GameObject floorP;
+	[SerializeField]
+	GameObject CheckBox;
 	[SerializeField] 
 	float size = 2f;
 	[SerializeField]
 	float offset = 1000f;
 	private MazeCell[,] mazeCells;
 	private MazeCell[,] mazeCells2;
-	// Use this for initialization
 	void Start () {
 		mazeCells = new MazeCell[mazeRows, mazeColumns];
 		mazeCells2 = new MazeCell[mazeRows, mazeColumns];
 		InitializeMaze(mazeCells);
 		InitializeMaze(mazeCells2,offset);
-		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
-		MazeAlgorithm ma2 = new HuntAndKillMazeAlgorithm(mazeCells2);
+		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells,this);
+		MazeAlgorithm ma2 = new HuntAndKillMazeAlgorithm(mazeCells2,this,offset);
 		ma.CreateMaze ();
 		ma2.CreateMaze();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
+    }
 
+    public void CreateCheckpoint(int CurrentRow, int CurrentColumn, float offset = 0f)
+    {
+		Instantiate(CheckBox, new Vector3(CurrentRow * size + offset, -(size / 2f), CurrentColumn * size), Quaternion.identity);
+		//Checkpoint.SetCheckpoint(new Vector3(CurrentRow * size + offset, -(size / 2f), CurrentColumn * size));
+	}
+	public void CreateRespawnPosition(int CurrentRow,int CurrentColumn, float Offset = 0f)
+    {
+		Debug.Log(CurrentRow + "," + CurrentColumn );
+		Vector3 position = new Vector3(CurrentRow * size + Offset, -(size / 2f) + 3, CurrentColumn * size);
+		//Checkpoint.SetRespawnPosition(position);
+	}
 	private void InitializeMaze(MazeCell[,] mazeCells,float offset=0f) {
 
-		//mazeCells = new MazeCell[mazeRows,mazeColumns];
 
 		for (int r = 0; r < mazeRows; r++) {
 			for (int c = 0; c < mazeColumns; c++) {

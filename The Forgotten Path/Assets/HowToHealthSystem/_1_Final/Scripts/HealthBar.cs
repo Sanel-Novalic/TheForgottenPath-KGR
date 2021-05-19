@@ -19,7 +19,6 @@ namespace CodeMoney_HowToHealthSystem_1_Final {
             UpdateHealthBar();
         }
         private void UpdateHealthBar() {
-            Debug.Log("You should ahved");
             fill.fillAmount = Enemy.GetHealthPercent();
         }
 

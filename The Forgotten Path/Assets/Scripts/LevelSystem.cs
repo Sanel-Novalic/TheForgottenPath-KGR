@@ -29,7 +29,6 @@ public class LevelSystem : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI XpText;
 
-    //Audio  
     [Header("Audio")]
     public AudioClip levelUpSound;
     [SerializeField]
@@ -37,6 +36,9 @@ public class LevelSystem : MonoBehaviour
     //Timers
     private float lerpTimer;
     private float delayTimer;
+
+    //Player parameters
+    private 
 
     void Start()
     {
@@ -127,7 +129,7 @@ public class LevelSystem : MonoBehaviour
         XpText.text = Mathf.Round(currentXp) + "/" + nextLevelXp;
         levelText.text = "Level " + level;
         //Instantiate(levelUpEffect, transform.position, Quaternion.identity);
-        GetComponent<Player>().IncreaseHealth(level);
+        GetComponent<Player>().IncreaseStats();
         Source.PlayOneShot(levelUpSound);
     }
     private int CalculateNextLevelXp() 

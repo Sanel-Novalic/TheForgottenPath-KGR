@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class Player : MonoBehaviourPun,IPunObservable
 {
@@ -135,5 +136,8 @@ public class Player : MonoBehaviourPun,IPunObservable
 		}
 	}
 
-	
+	internal void IncreaseStats()
+	{
+		
+	}
 }

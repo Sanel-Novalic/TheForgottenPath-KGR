@@ -15,13 +15,14 @@ public class GameHelper : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
         //CreatePlayer();
-        Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
+        
+            Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
         
     }
     private void Start()
     {
-
-        Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
+        
+            Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
         
     }
     private void Awake()

@@ -9,10 +9,6 @@ public class Player : MonoBehaviourPun,IPunObservable
 {
 	[SerializeField]
 	private int MaxHealth = 100;
-	[SerializeField]
-	private int AttackDamage = 100;
-	[SerializeField]
-	private int AttackDamagePerLevel = 20;
 	private int CurrentHealth;
 	private float LerpTimer;
 	[SerializeField]
@@ -23,18 +19,18 @@ public class Player : MonoBehaviourPun,IPunObservable
 	private Image BackHealthBar;
 	[SerializeField]
 	private TextMeshProUGUI HealthText;
-	[SerializeField]
-	private int HealthPerLevel = 50;
 	protected Rigidbody Rigidbody;
 	protected Animator Animator;
-	
+	private static Player PlayerInstance;
 	// Start is called before the first frame update
 	void Start()
     {
 		CurrentHealth = MaxHealth;
+		
     }
 	private void Awake()
 	{
+		DontDestroyOnLoad(gameObject);
 		Rigidbody = GetComponent<Rigidbody>();
 		Animator = GetComponent<Animator>();
 		if (!photonView.IsMine && this.gameObject.GetComponent<Invector.vCharacterController.vThirdPersonInput>()!=null )
@@ -43,6 +39,8 @@ public class Player : MonoBehaviourPun,IPunObservable
 			
 
 		}
+		
+		
 	}
 	// Update is called once per frame
 	void Update()
@@ -64,7 +62,10 @@ public class Player : MonoBehaviourPun,IPunObservable
 		LerpTimer = 0f;
 		if (CurrentHealth <= 0)
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
+			CurrentHealth = MaxHealth;
 		}
 	}
 
@@ -93,18 +94,10 @@ public class Player : MonoBehaviourPun,IPunObservable
 		}
 		HealthText.text = CurrentHealth + "/" + MaxHealth;
 	}
-
-	public int GetAttackDamage()
-    {
-		return AttackDamage;
-    }
-	public void IncreaseStats()
+	public void IncreaseHealth(int level)
 	{
-		//MaxHealth += Mathf.RoundToInt((CurrentHealth * 0.01f) * ((100 - level) * 0.1f));
-		AttackDamage += AttackDamagePerLevel;
-		MaxHealth += HealthPerLevel;
+		MaxHealth += Mathf.RoundToInt((CurrentHealth * 0.01f) * ((100 - level) * 0.1f));
 		CurrentHealth = MaxHealth;
-
 	}
 	public void RestoreHealth(int HealAmount)
     {

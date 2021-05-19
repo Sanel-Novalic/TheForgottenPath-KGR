@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneratingEnemies : MonoBehaviour
+public class GeneratingEnemies : MonoBehaviourPunCallbacks,IPunObservable
 {
     [SerializeField]
     private GameObject Enemy1;
@@ -18,23 +19,40 @@ public class GeneratingEnemies : MonoBehaviour
     
     void Start()
     {
-
+       
         StartCoroutine(EnemyGenerate());
     }
 
     IEnumerator EnemyGenerate()
     {
-        while(NumberOfEnemies<MaxNumberOfEnemies)
+        
+        while (NumberOfEnemies<MaxNumberOfEnemies)
         {
+            //if (!PhotonNetwork.IsMasterClient) break;
             PositionX1 = Random.Range(0,115);
             PositionY1 = Random.Range(0,260);
-            Instantiate(Enemy1, new Vector3(PositionX1, 0, PositionY1), Quaternion.identity);
+            PhotonNetwork.Instantiate(Enemy1.name, new Vector3(PositionX1, 0, PositionY1), Quaternion.identity);
             PositionX2 = Random.Range(-6, 171);
             PositionY2 = Random.Range(-6, 260);
-            Instantiate(Enemy2, new Vector3(PositionX2, 0, PositionY2), Quaternion.identity);
+            PhotonNetwork.Instantiate(Enemy2.name, new Vector3(PositionX2, 0, PositionY2), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
             NumberOfEnemies += 1;
         }
     }
-   
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+
+        }
+        else
+        {
+            transform.position = (Vector3)stream.ReceiveNext();
+            transform.rotation = (Quaternion)stream.ReceiveNext();
+
+        }
+    }
 }

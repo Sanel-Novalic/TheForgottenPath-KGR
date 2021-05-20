@@ -10,7 +10,8 @@ public class Player : MonoBehaviourPun,IPunObservable
 {
 	[SerializeField]
 	private int MaxHealth = 100;
-	private int CurrentHealth;
+	[HideInInspector]
+	public int CurrentHealth;
 	private float LerpTimer;
 	[SerializeField]
 	private float ChipSpeed = 1f;

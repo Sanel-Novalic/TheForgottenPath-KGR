@@ -19,7 +19,7 @@ public class HealthKit : MonoBehaviour
     {
         if (other.collider.CompareTag("Player"))
         {
-            other.collider.GetComponent<Player>().RestoreHealth(20);
+            other.collider.GetComponent<Player>().RestoreHealth(50);
             Destroy(gameObject);
         }
     }

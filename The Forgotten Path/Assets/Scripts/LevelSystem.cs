@@ -129,7 +129,7 @@ public class LevelSystem : MonoBehaviour
         XpText.text = Mathf.Round(currentXp) + "/" + nextLevelXp;
         levelText.text = "Level " + level;
         //Instantiate(levelUpEffect, transform.position, Quaternion.identity);
-        GetComponent<Player>().IncreaseStats();
+        //GetComponent<Player>().IncreaseStats();
         Source.PlayOneShot(levelUpSound);
     }
     private int CalculateNextLevelXp() 

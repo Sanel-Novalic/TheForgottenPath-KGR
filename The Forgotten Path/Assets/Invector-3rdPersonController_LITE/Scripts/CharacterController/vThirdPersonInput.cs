@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using Photon.Pun;
 
 namespace Invector.vCharacterController
 {
-    public class vThirdPersonInput : MonoBehaviour
+    public class vThirdPersonInput : MonoBehaviourPun,IPunObservable
     {
         #region Variables       
 
@@ -145,6 +146,26 @@ namespace Invector.vCharacterController
                 cc.Jump();
         }
 
-        #endregion       
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                stream.SendNext(horizontalInput);
+                stream.SendNext(verticallInput);
+                
+                
+
+            }
+            else
+            {
+                transform.position = (Vector3)stream.ReceiveNext();
+                transform.rotation = (Quaternion)stream.ReceiveNext();
+
+            }
+        }
+
+        #endregion
     }
+
+    
 }

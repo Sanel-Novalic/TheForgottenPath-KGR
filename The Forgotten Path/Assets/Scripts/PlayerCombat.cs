@@ -39,8 +39,7 @@ public class PlayerCombat : MonoBehaviour
            
             if (Enemy.CompareTag("Enemy"))
             {
-                Enemy.GetComponent<Enemy>().TakeDamage(Player.GetAttackDamage());
-                Debug.Log(Player.GetAttackDamage());
+                Enemy.GetComponent<Enemy>().TakeDamage(50);
             }
             
         }

@@ -142,11 +142,11 @@ public class Player : MonoBehaviourPun,IPunObservable
 			
 		}
 	}
-
     public void IncreaseStats()
     {
 		AttackDamage += 50;
 		MaxHealth += 50;
 		CurrentHealth = MaxHealth;
+		Debug.Log(AttackDamage);
     }
 }

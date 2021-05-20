@@ -13,9 +13,6 @@ public class PlayerCombat : MonoBehaviour
     private LayerMask EnemyLayer;
     [SerializeField]
     private Player Player;
-    private float AttackDelay ;
-    private float LastAttacked;
-    private AnimatorStateInfo AnimInfo;
     void Start()
     {
 
@@ -25,39 +22,28 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            
-           
-                Attack();
-             
+            Attack();
         }
     }
 
     private void Attack()
     {
+        VectorAnimator.SetTrigger("Attack");
 
-    while(Time.time > LastAttacked + AttackDelay && Player.CurrentHealth > 0)
-    {
-            VectorAnimator.SetTrigger("Attack");
-        AttackDelay = VectorAnimator.GetCurrentAnimatorStateInfo(0).length;
         Collider[] HitEnemies = Physics.OverlapSphere(AttackSpot.position, AttackRange, EnemyLayer);
 
-            foreach (Collider enemy in HitEnemies)
+        foreach (Collider enemy in HitEnemies)
+        {
+            Debug.Log("We hit " + enemy.name);
+            GameObject Enemy = enemy.gameObject;
+           
+            if (Enemy.CompareTag("Enemy"))
             {
-                Debug.Log("We hit " + enemy.name);
-                GameObject Enemy = enemy.gameObject;
-
-                if (Enemy.CompareTag("Enemy"))
-                {
-                    Enemy.GetComponent<Enemy>().TakeDamage(50);
-                }
-
+                Enemy.GetComponent<Enemy>().TakeDamage(Player.GetAttackDamage());
             }
-            LastAttacked = Time.time;
+            
         }
-
-        VectorAnimator.SetTrigger("Attack");
-        AttackDelay = VectorAnimator.GetCurrentAnimatorStateInfo(0).length;
-
+        
     }
 
     private void OnDrawGizmosSelected()

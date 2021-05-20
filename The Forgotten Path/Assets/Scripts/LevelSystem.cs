@@ -49,29 +49,6 @@ public class LevelSystem : MonoBehaviour
         BackXpBar.fillAmount = currentXp / nextLevelXp;
         nextLevelXp = CalculateNextLevelXp();
     }
-
-    void Update()
-    {
-        UpdateXpUI();
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            currentXp += 20;
-        }
-        if (level != maxLevel)
-        {
-            if (currentXp >= nextLevelXp)
-            {
-                LevelUp();
-            }        
-        }
-        else
-        {
-            currentXp = nextLevelXp;
-            XpText.text = "MAX";
-            FrontXpBar.fillAmount = currentXp / nextLevelXp;
-            BackXpBar.fillAmount = currentXp / nextLevelXp;
-        }
-    }
     private void UpdateXpUI() 
     {
         float xpFraction = currentXp / nextLevelXp;
@@ -90,6 +67,20 @@ public class LevelSystem : MonoBehaviour
 
         }
         XpText.text = currentXp + "/" + nextLevelXp;
+        if (level != maxLevel)
+        {
+            if (currentXp >= nextLevelXp)
+            {
+                LevelUp();
+            }
+        }
+        else
+        {
+            currentXp = nextLevelXp;
+            XpText.text = "MAX";
+            FrontXpBar.fillAmount = currentXp / nextLevelXp;
+            BackXpBar.fillAmount = currentXp / nextLevelXp;
+        }
     }
 
     public void GainExperienceFlatRate(float xpGained)
@@ -97,6 +88,11 @@ public class LevelSystem : MonoBehaviour
             currentXp += xpGained;
             lerpTimer = 0f;
             delayTimer = 0f;
+    }
+    public void IncreaseXP(int Amount)
+    {
+        currentXp += Amount;
+        UpdateXpUI();
     }
     public void GainExperienceScalable(float xpGained, int passedLevel)
     {
@@ -129,7 +125,7 @@ public class LevelSystem : MonoBehaviour
         XpText.text = Mathf.Round(currentXp) + "/" + nextLevelXp;
         levelText.text = "Level " + level;
         //Instantiate(levelUpEffect, transform.position, Quaternion.identity);
-        //GetComponent<Player>().IncreaseStats();
+        GetComponent<Player>().IncreaseStats();
         Source.PlayOneShot(levelUpSound);
     }
     private int CalculateNextLevelXp() 

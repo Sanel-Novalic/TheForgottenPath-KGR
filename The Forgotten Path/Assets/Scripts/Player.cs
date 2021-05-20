@@ -22,7 +22,7 @@ public class Player : MonoBehaviourPun,IPunObservable
 	private TextMeshProUGUI HealthText;
 	protected Rigidbody Rigidbody;
 	protected Animator Animator;
-	private static Player PlayerInstance;
+	private int AttackDamage = 100;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -43,8 +43,14 @@ public class Player : MonoBehaviourPun,IPunObservable
 		
 		
 	}
-	// Update is called once per frame
-	void Update()
+
+    public int GetAttackDamage()
+    {
+		return AttackDamage;
+    }
+
+    // Update is called once per frame
+    void Update()
     {
 		UpdateHealthUI();
 		if (Input.GetKeyDown(KeyCode.Space))
@@ -136,8 +142,10 @@ public class Player : MonoBehaviourPun,IPunObservable
 		}
 	}
 
-	internal void IncreaseStats()
-	{
-		
-	}
+    public void IncreaseStats()
+    {
+		AttackDamage += 50;
+		MaxHealth += 50;
+		CurrentHealth = MaxHealth;
+    }
 }

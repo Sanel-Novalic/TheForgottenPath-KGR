@@ -16,10 +16,8 @@ public class Checkpoints : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("You should go to position " + Respawn);
-        Player.transform.position = Respawn;
-        Debug.Log("You have went to " + Player.transform.position);
-        //Debug.Log(Respawn);
+        if(other.gameObject.tag == "Player")
+            Player.transform.position = Respawn;
     }
     public void SetCheckpoint(Vector3 CheckpointPosition)
     {

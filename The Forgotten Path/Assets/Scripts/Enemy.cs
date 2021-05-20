@@ -4,16 +4,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    private int XP = 20;
+    [SerializeField]
     private int MaxHealth = 100;
     [HideInInspector]
     public int CurrentHealth;
     [SerializeField]
     private Animator EnemyAnimator;
     public event EventHandler OnHealthChanged;
+    private GameObject Player;
     void Start()
     {
         CurrentHealth = MaxHealth;
-        
+        Player = GameObject.FindWithTag("Player");
     }
     public void TakeDamage(int damage)
     {
@@ -33,6 +36,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         EnemyAnimator.SetTrigger("Died");
+        Player.GetComponent<LevelSystem>().IncreaseXP(XP);
         
     }
 

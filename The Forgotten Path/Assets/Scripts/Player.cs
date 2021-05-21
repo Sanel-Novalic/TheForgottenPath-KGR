@@ -109,7 +109,7 @@ public class Player : MonoBehaviourPun,IPunObservable
 	}
 	public void RestoreHealth(int HealAmount)
     {
-		CurrentHealth += HealAmount;
+		CurrentHealth = Math.Min(MaxHealth, CurrentHealth + HealAmount);
 		LerpTimer = 0f;
 
     }

@@ -10,6 +10,10 @@ public class Checkpoints : MonoBehaviour
     private GameObject Player;
     [SerializeField]
     private GameObject CheckBox;
+    [SerializeField]
+    private int HealthInc;
+    [SerializeField]
+    private int XPInc;
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -18,6 +22,9 @@ public class Checkpoints : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
             Player.transform.position = Respawn;
+        Player.GetComponent<Player>().RestoreHealth(HealthInc);
+        Player.GetComponent<LevelSystem>().IncreaseXP(XPInc);
+        Destroy(CheckBox);
     }
     public void SetCheckpoint(Vector3 CheckpointPosition)
     {

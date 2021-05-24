@@ -148,20 +148,20 @@ namespace Invector.vCharacterController
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.IsWriting)
-            {
-                stream.SendNext(horizontalInput);
-                stream.SendNext(verticallInput);
+            //if (stream.IsWriting)
+            //{
+            //    stream.SendNext(horizontalInput);
+            //    stream.SendNext(verticallInput);
                 
                 
 
-            }
-            else
-            {
-                transform.position = (Vector3)stream.ReceiveNext();
-                transform.rotation = (Quaternion)stream.ReceiveNext();
+            //}
+            //else
+            //{
+            //    transform.position = (Vector3)stream.ReceiveNext();
+            //    transform.rotation = (Quaternion)stream.ReceiveNext();
 
-            }
+            //}
         }
 
         #endregion

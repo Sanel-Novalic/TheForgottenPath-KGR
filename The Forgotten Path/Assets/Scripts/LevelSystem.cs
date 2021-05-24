@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class LevelSystem : MonoBehaviour
 {
     public int level = 1;
-    public float maxLevel;
+    public float maxLevel = 50;
     public float currentXp = 0;
     public int nextLevelXp = 100;
     [Header("Multipliers")]
@@ -48,6 +48,7 @@ public class LevelSystem : MonoBehaviour
         FrontXpBar.fillAmount = currentXp / nextLevelXp;
         BackXpBar.fillAmount = currentXp / nextLevelXp;
         nextLevelXp = CalculateNextLevelXp();
+        UpdateXpUI();
     }
     private void UpdateXpUI() 
     {

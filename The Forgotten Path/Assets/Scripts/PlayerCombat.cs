@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour
     private LayerMask EnemyLayer;
     [SerializeField]
     private Player Player;
+    private float TimeBetweenAttack;
+    private float StartTimeBetweenAttack;
     void Start()
     {
 
@@ -20,10 +22,24 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+
+        if(TimeBetweenAttack<=0)
         {
-            Attack();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+            }
+            TimeBetweenAttack = StartTimeBetweenAttack;
+
         }
+        else
+        {
+            TimeBetweenAttack -= Time.deltaTime;
+        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    Attack();
+        //}
     }
 
     private void Attack()

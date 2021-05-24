@@ -14,6 +14,7 @@ public class GameHelper : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+        Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
     }
     private void Start()
     {

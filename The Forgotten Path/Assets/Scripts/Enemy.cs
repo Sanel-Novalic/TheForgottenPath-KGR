@@ -20,14 +20,17 @@ public class Enemy : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+       
         CurrentHealth -= damage;
         if (OnHealthChanged != null) OnHealthChanged(this, EventArgs.Empty);
         if (CurrentHealth <= 0)
         {
             Die();
-            Destroy(gameObject,5f);
+            Destroy(gameObject,3f);
         }
-           
+        else
+            EnemyAnimator.SetTrigger("GotHit");
+
     }
     public float GetHealthPercent()
     {

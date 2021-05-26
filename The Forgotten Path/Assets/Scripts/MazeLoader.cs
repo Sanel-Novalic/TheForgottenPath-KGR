@@ -51,6 +51,7 @@ public class MazeLoader : MonoBehaviour {
 				mazeCells [r, c] .floor = Instantiate (floorP, new Vector3 (r*size + offset, -(size/2f), c*size), Quaternion.identity) as GameObject;
 				mazeCells [r, c] .floor.name = "Floor " + r + "," + c;
 				mazeCells [r, c] .floor.transform.Rotate (Vector3.right, 90f);
+				
 				if (r == mazeRows - 1 && c == mazeColumns - 1 || r==0 && c==0)
 					continue;
 				if (c == 0) {

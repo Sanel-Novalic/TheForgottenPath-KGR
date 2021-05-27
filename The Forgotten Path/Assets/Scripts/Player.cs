@@ -115,7 +115,7 @@ public class Player : MonoBehaviourPun,IPunObservable
     }
 	public static void RefreshInstance(ref Player player, Player Prefab)
 	{
-		var position = Vector3.zero;
+		var position = new Vector3(0, -5, 0);
 		var rotation = Quaternion.identity;
 		if (player != null)
 		{

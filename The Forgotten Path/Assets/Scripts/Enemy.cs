@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         EnemyAnimator.SetTrigger("Died");
-        Player.GetComponent<LevelSystem>().IncreaseXP(XP);
+        //Player.GetComponent<LevelSystem>().IncreaseXP(XP);
         
     }
 

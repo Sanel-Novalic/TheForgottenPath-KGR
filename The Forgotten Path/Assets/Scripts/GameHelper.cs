@@ -6,31 +6,37 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using System.IO;
 
-public class GameHelper : MonoBehaviourPunCallbacks
+namespace SG
 {
-    public Player PlayerPrefab;
-    [HideInInspector]
-    public Player LocalPlayer;
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    public class GameHelper : MonoBehaviourPunCallbacks
     {
-        base.OnPlayerEnteredRoom(newPlayer);
-        Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
-    }
-    private void Start()
-    {
-        Player.RefreshInstance(ref LocalPlayer, PlayerPrefab);
-    }
-    private void Awake()
-    {
-        if (!PhotonNetwork.IsConnected)
+        public PlayerStats PlayerPrefab;
+        [HideInInspector]
+        public PlayerStats LocalPlayer;
+
+        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
         {
-            SceneManager.LoadScene("Main Menu");
-            return;
+            base.OnPlayerEnteredRoom(newPlayer);
+            PlayerStats.RefreshInstance(ref LocalPlayer, PlayerPrefab);
         }
-    }
-    public void CreatePlayer()
-    {
-        Debug.Log("Creating Player");
-        PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+
+        public Transform playerTransform()
+        {
+            return LocalPlayer.gameObject.transform;
+        }
+        private void Awake()
+        {
+            if (!PhotonNetwork.IsConnected)
+            {
+                SceneManager.LoadScene("Main Menu");
+                return;
+            }
+            PlayerStats.RefreshInstance(ref LocalPlayer, PlayerPrefab);
+        }
+        public void CreatePlayer()
+        {
+            Debug.Log("Creating Player");
+            PhotonNetwork.Instantiate(PlayerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity, 0);
+        }
     }
 }

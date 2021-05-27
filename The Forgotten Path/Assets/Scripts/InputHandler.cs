@@ -47,8 +47,6 @@ namespace SG
         PlayerStats playerStats;
         CameraHandler cameraHandler;
         PlayerAnimatorManager animatorHandler;
-        //UIManager uiManager;
-
         Vector2 movementInput;
         Vector2 cameraInput;
 
@@ -73,7 +71,6 @@ namespace SG
                 inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
                 inputActions.PlayerActions.RB.performed += i => rb_Input = true;
                 inputActions.PlayerActions.RT.performed += i => rt_Input = true;
-                Debug.Log(cameraInput);
                 //inputActions.PlayerActions.LB.performed += i => lb_Input = true;
                 //inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
                 //inputActions.PlayerActions.LT.performed += i => lt_Input = true;
@@ -126,13 +123,7 @@ namespace SG
             {
                 rollInputTimer += delta;
 
-                if (playerStats.currentStamina <= 0)
-                {
-                    b_Input = false;
-                    sprintFlag = false;
-                }
-
-                if (moveAmount > 0.5f && playerStats.currentStamina > 0)
+                if (moveAmount > 0.5f)
                 {
                     sprintFlag = true;
                 }

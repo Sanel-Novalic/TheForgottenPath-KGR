@@ -6,7 +6,7 @@ namespace SG
 {
     public class EnemyStats : CharacterStats
     {
-        EnemyAnimatorManager enemyAnimatorManager;
+        //EnemyAnimatorManager enemyAnimatorManager;
 
         //public UIEnemyHealthBar enemyHealthBar;
 
@@ -14,7 +14,7 @@ namespace SG
 
         private void Awake()
         {
-            enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+            //enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         }
 
         void Start()
@@ -57,7 +57,7 @@ namespace SG
         private void HandleDeath()
         {
             currentHealth = 0;
-            enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
+            //enemyAnimatorManager.PlayTargetAnimation("Dead_01", true);
             isDead = true;
         }
     }

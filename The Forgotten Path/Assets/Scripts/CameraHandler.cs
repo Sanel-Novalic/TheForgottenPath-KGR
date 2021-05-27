@@ -49,14 +49,13 @@ namespace SG
             myTransform = transform;
             defaultPosition = cameraTransform.localPosition.z;
             ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
-            
+            targetTransform = FindObjectOfType<PlayerManager>().transform;
             inputHandler = FindObjectOfType<InputHandler>();
             playerManager = FindObjectOfType<PlayerManager>();
         }
 
         private void Start()
         {
-            targetTransform = FindObjectOfType<PlayerManager>().transform;
             enviromentLayer = LayerMask.NameToLayer("Environment");
         }
 

@@ -8,7 +8,7 @@ namespace SG
     {
         public Animator anim;
 
-        public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool canRotate = false, bool canMove = false)
+        public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool canRotate = false)
         {
             anim.applyRootMotion = isInteracting;
             anim.SetBool("canRotate", canRotate);

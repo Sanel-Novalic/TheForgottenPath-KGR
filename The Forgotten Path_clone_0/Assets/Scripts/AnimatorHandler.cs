@@ -12,7 +12,7 @@ namespace SG
         int vertical;
         int horizontal;
         public bool canRotate;
-
+        private Animator anim;
 
         public void Initialize()
         {
@@ -129,5 +129,12 @@ namespace SG
             playerLocomotion.rigidbody.velocity = velocity;
         }
 
+        public override void PlayTargetAnimation(string targetAnim, bool isInteracting, bool canRotate = false)
+        {
+            anim.applyRootMotion = isInteracting;
+            anim.SetBool("canRotate", canRotate);
+            anim.SetBool("isInteracting", isInteracting);
+            anim.CrossFade(targetAnim, 0.2f);
+        }
     }
 }

@@ -7,6 +7,15 @@ namespace SG
     public class EnemyAnimatorManager : AnimatorManager
     {
         EnemyLocomotionManager enemyLocomotionManager;
+        public Animator anim { get; set; }
+
+        public override void PlayTargetAnimation(string targetAnim, bool isInteracting, bool canRotate = false)
+        {
+            anim.applyRootMotion = isInteracting;
+            anim.SetBool("canRotate", canRotate);
+            anim.SetBool("isInteracting", isInteracting);
+            anim.CrossFade(targetAnim, 0.2f);
+        }
 
         private void Awake()
         {

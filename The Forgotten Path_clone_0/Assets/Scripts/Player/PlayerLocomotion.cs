@@ -45,13 +45,11 @@ namespace SG
 
         private void Awake()
         {
-            
             playerManager = GetComponent<PlayerManager>();
             playerStats = GetComponent<PlayerStats>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
-
         }
 
         void Start()
@@ -285,9 +283,6 @@ namespace SG
         public void HandleJumping()
         {
             if (playerManager.isInteracting)
-                return;
-
-            if (playerStats.currentStamina <= 0)
                 return;
 
             if (inputHandler.jump_Input)

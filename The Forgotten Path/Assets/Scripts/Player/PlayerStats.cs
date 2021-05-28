@@ -81,34 +81,34 @@ namespace SG
             soulCount = soulCount + souls;
         }
 
-        public static void RefreshInstance(ref PlayerStats player, PlayerStats Prefab)
-        {
-            var position = new Vector3(0, -5, 0);
-            var rotation = Quaternion.identity;
-            if (player != null)
-            {
-                position = player.transform.position;
-                rotation = player.transform.rotation;
-                PhotonNetwork.Destroy(player.gameObject);
-            }
+        //public static void RefreshInstance(ref PlayerStats player, PlayerStats Prefab)
+        //{
+        //    var position = new Vector3(0, -5, 0);
+        //    var rotation = Quaternion.identity;
+        //    if (player != null)
+        //    {
+        //        position = player.transform.position;
+        //        rotation = player.transform.rotation;
+        //        PhotonNetwork.Destroy(player.gameObject);
+        //    }
 
-            player = PhotonNetwork.Instantiate(Prefab.gameObject.name, position, rotation).GetComponent<PlayerStats>();
-        }
+        //    player = PhotonNetwork.Instantiate(Prefab.gameObject.name, position, rotation).GetComponent<PlayerStats>();
+        //}
 
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-        {
-            if (stream.IsWriting)
-            {
-                stream.SendNext(transform.position);
-                stream.SendNext(transform.rotation);
+        //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        //{
+        //    if (stream.IsWriting)
+        //    {
+        //        stream.SendNext(transform.position);
+        //        stream.SendNext(transform.rotation);
 
-            }
-            else
-            {
-                transform.position = (Vector3)stream.ReceiveNext();
-                transform.rotation = (Quaternion)stream.ReceiveNext();
+        //    }
+        //    else
+        //    {
+        //        transform.position = (Vector3)stream.ReceiveNext();
+        //        transform.rotation = (Quaternion)stream.ReceiveNext();
 
-            }
-        }
+        //    }
+        //}
     }
 }

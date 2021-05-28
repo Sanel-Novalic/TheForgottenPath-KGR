@@ -36,6 +36,7 @@ namespace SG
             anim = GetComponentInChildren<Animator>();
             playerStats = GetComponent<PlayerStats>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
+            DontDestroyOnLoad(gameObject);
         }
 
 

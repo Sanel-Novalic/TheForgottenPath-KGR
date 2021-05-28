@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace SG
 {
@@ -98,6 +99,8 @@ namespace SG
 
         public void TickInput(float delta)
         {
+            if (!gameObject.GetComponent<PhotonView>().IsMine)
+                return;
             HandleMoveInput(delta);
             HandleRollInput(delta);
             HandleCombatInput(delta);

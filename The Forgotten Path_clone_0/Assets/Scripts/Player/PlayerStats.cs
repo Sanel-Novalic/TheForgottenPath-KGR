@@ -34,7 +34,7 @@ namespace SG
         }
 
 
-        public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
+        public override void TakeDamage(int damage, string damageAnimation = "Get Hit")
         {
             base.TakeDamage(damage, damageAnimation = "Damage_01");
             healthBar.SetCurrentHealth(currentHealth);
@@ -44,7 +44,7 @@ namespace SG
             {
                 currentHealth = 0;
                 isDead = true;
-                animatorHandler.PlayTargetAnimation("Dead_01", true);
+                animatorHandler.PlayTargetAnimation("Death", true);
                 //HANDLE PLAYER DEATH
             }
         }

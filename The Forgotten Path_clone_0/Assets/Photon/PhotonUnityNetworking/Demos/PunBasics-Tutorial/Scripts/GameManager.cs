@@ -10,9 +10,9 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Photon;
 using Photon.Realtime;
-
+using Photon.Pun;
 namespace Photon.Pun.Demo.PunBasics
 {
 	#pragma warning disable 649
@@ -23,8 +23,8 @@ namespace Photon.Pun.Demo.PunBasics
 	/// Deals with quiting the room and the game
 	/// Deals with level loading (outside the in room synchronization)
 	/// </summary>
-	public class GameManager : MonoBehaviourPunCallbacks
-    {
+	public class GameManager : MonoBehaviourPunCallbacks, IPunObservable
+	{
 
 		#region Public Fields
 
@@ -68,9 +68,9 @@ namespace Photon.Pun.Demo.PunBasics
 				if (PlayerManager.LocalPlayerInstance==null)
 				{
 				    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-
+					Debug.Log(playerPrefab.GetComponent<PhotonView>().IsMine);
 					// we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-						PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+						PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,-5f,0f), Quaternion.identity, 0);
 				}else{
 
 					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
@@ -111,6 +111,7 @@ namespace Photon.Pun.Demo.PunBasics
 
 				LoadArena();
 			}
+			Debug.Log("Players in room: "+ PhotonNetwork.CurrentRoom.PlayerCount);
 		}
 
 		/// <summary>
@@ -164,7 +165,11 @@ namespace Photon.Pun.Demo.PunBasics
 
 			Debug.LogFormat( "PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount );
 
-			PhotonNetwork.LoadLevel("PunBasics-Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+			PhotonNetwork.LoadLevel("PunBasics-Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+		}
+		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+		{
+			throw new System.NotImplementedException();
 		}
 
 		#endregion

@@ -30,6 +30,7 @@ namespace SG
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             if (photonView.IsMine)
                 LocalPlayerInstance = this.gameObject;
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -39,7 +40,7 @@ namespace SG
             anim = GetComponentInChildren<Animator>();
             playerStats = GetComponent<PlayerStats>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
-            DontDestroyOnLoad(gameObject);
+            
         }
 
 

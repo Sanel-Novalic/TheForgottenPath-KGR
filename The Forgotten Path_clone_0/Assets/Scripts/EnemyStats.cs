@@ -6,7 +6,7 @@ namespace SG
 {
     public class EnemyStats : CharacterStats
     {
-        //EnemyAnimatorManager enemyAnimatorManager;
+        EnemyAnimatorManager enemyAnimatorManager;
 
         //public UIEnemyHealthBar enemyHealthBar;
 
@@ -14,7 +14,7 @@ namespace SG
 
         private void Awake()
         {
-            //enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+            enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         }
 
         void Start()
@@ -42,12 +42,12 @@ namespace SG
             }
         }
 
-        public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
+        public override void TakeDamage(int damage, string damageAnimation = "Get Hit")
         {
             base.TakeDamage(damage, damageAnimation = "Damage_01");
             //enemyHealthBar.SetHealth(currentHealth);
-           // enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);
-
+            enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);
+            Debug.Log("Got hit");
             if (currentHealth <= 0)
             {
                 HandleDeath();

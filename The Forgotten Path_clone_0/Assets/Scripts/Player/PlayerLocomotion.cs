@@ -50,6 +50,7 @@ namespace SG
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
+            animatorHandler.Initialize();
         }
 
         void Start()
@@ -57,7 +58,7 @@ namespace SG
             cameraHandler = FindObjectOfType<CameraHandler>();
             cameraObject = Camera.main.transform;
             myTransform = transform;
-            animatorHandler.Initialize();
+            
             playerManager.isGrounded = true;
             ignoreForGroundCheck = ~(1 << 8 | 1 << 11);
             //IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);

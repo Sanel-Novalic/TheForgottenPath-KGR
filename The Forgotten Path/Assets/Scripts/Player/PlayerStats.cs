@@ -36,9 +36,6 @@ namespace SG
 
         public override void TakeDamage(int damage, string damageAnimation = "Damage_01")
         {
-            if (playerManager.isInvulerable)
-                return;
-
             base.TakeDamage(damage, damageAnimation = "Damage_01");
             healthBar.SetCurrentHealth(currentHealth);
             animatorHandler.PlayTargetAnimation(damageAnimation, true);

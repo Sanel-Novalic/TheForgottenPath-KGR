@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace SG
         PlayerStats playerStats;
         PlayerAnimatorManager playerAnimatorManager;
         PlayerLocomotion playerLocomotion;
-
+        public GameObject LocalPlayerInstance;
         public GameObject interactableUIGameObject;
         public GameObject itemInteractableGameObject;
 
@@ -29,6 +30,8 @@ namespace SG
 
         private void Awake()
         {
+            if (photonView.IsMine)
+                LocalPlayerInstance = this.gameObject;
             cameraHandler = FindObjectOfType<CameraHandler>();
             //backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
             inputHandler = GetComponent<InputHandler>();
@@ -46,15 +49,15 @@ namespace SG
 
             isInteracting = anim.GetBool("isInteracting");
             canDoCombo = anim.GetBool("canDoCombo");
-        //isUsingRightHand = anim.GetBool("isUsingRightHand");
-        //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
-        //isInvulerable = anim.GetBool("isInvulnerable");
-        //isFiringSpell = anim.GetBool("isFiringSpell");
-        //anim.SetBool("isInAir", isInAir);
-        ////anim.SetBool("isDead", playerStats.isDead);
-        //anim.SetBool("isBlocking", isBlocking);
+            //isUsingRightHand = anim.GetBool("isUsingRightHand");
+            //isUsingLeftHand = anim.GetBool("isUsingLeftHand");
+            //isInvulerable = anim.GetBool("isInvulnerable");
+            //isFiringSpell = anim.GetBool("isFiringSpell");
+            //anim.SetBool("isInAir", isInAir);
+            ////anim.SetBool("isDead", playerStats.isDead);
+            //anim.SetBool("isBlocking", isBlocking);
 
-        inputHandler.TickInput(delta);
+            inputHandler.TickInput(delta);
             playerAnimatorManager.canRotate = anim.GetBool("canRotate");
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleJumping();
@@ -98,7 +101,10 @@ namespace SG
             }
         }
 
-
-
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            throw new System.NotImplementedException();
+        }
     }
+
 }

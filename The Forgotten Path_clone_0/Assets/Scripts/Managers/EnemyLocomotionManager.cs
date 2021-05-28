@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace SG
 {
@@ -8,7 +9,7 @@ namespace SG
     {
         EnemyManager enemyManager;
         EnemyAnimatorManager enemyAnimatorManager;
-        UnityEngine.AI.NavMeshAgent navmeshAgent;
+        NavMeshAgent navmeshAgent;
         public Rigidbody enemyRigidBody;
 
         public CharacterStats currentTarget;
@@ -23,7 +24,7 @@ namespace SG
         {
             enemyManager = GetComponent<EnemyManager>();
             enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-            navmeshAgent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
+            navmeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidBody = GetComponent<Rigidbody>();
         }
 
@@ -58,6 +59,9 @@ namespace SG
 
         public void HandleMoveToTarget()
         {
+            if (enemyManager.isPreformingAction)
+                return;
+
             Vector3 targetDirection = currentTarget.transform.position - transform.position;
             distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);

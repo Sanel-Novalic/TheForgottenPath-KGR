@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SG
 {
-    public class CharacterManager : MonoBehaviour
+    public class CharacterManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         [Header("Lock On Transform")]
         public Transform lockOnTransform;
@@ -25,5 +26,10 @@ namespace SG
         //Damage will be inflicted during an animation event
         //Used in backstab or riposte animations
         public int pendingCriticalDamage;
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
